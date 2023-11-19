@@ -1,0 +1,66 @@
+version: '3.9'
+
+services:
+#  flp-api:
+#    container_name: flp-api
+#    image: golang:1.21.4
+#    stdin_open: true # docker run -i
+#    tty: true        # docker run -t
+#    command: bash
+#    working_dir: /go/src/flp-api
+#    volumes:
+#      - /home/seeff00/GolandProjects/flp-api:/go/src/flp-api
+#    depends_on:
+#      - redis
+#      - redis-commander
+#    expose:
+#      - 8080
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - local_network
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    expose:
+      - 3306
+    ports:
+      - "3306:3306"
+    networks:
+      - local_network
+  redis:
+    container_name: redis
+    image: redis:latest
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_volume:/data
+    entrypoint: redis-server --appendonly yes
+    networks:
+      - local_network
+  redis-commander:
+    container_name: redis-commander
+    image: rediscommander/redis-commander:latest
+    ports:
+      - 8008:8081
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    restart: always
+    networks:
+      - local_network
+
+volumes:
+  mysql-volume: {}
+  redis_volume: {}
+
+networks:
+  local_network:
