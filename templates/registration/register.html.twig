@@ -3,7 +3,7 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>{{ translations['registration']|trans }}</h1>
+    <h1>{{ translations['Registration']|trans }}</h1>
 
     {{ form_errors(registrationForm) }}
 
@@ -15,6 +15,6 @@
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">{{ translations['register']|trans }}</button>
+        <button type="submit" class="btn">{{ translations['Register']|trans }}</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

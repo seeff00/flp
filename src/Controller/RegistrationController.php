@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\FLPAuthAuthenticator;
+use App\Translations\Loader;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +19,12 @@ use Symfony\Component\Translation\TranslatableMessage;
 
 class RegistrationController extends AbstractController
 {
+    private array $translations;
+
+    public function __construct()
+    {
+        $this->translations = Loader::getAll();
+    }
 //    public function __construct(
 //        private LocaleSwitcher $localeSwitcher,
 //    ) {
@@ -59,13 +66,9 @@ class RegistrationController extends AbstractController
             );
         }
 
-        $translations = [];
-        $translations['registration'] = new TranslatableMessage('Registration');
-        $translations['register'] = new TranslatableMessage('Register');
-
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-            'translations' => $translations,
+            'translations' => $this->translations,
         ]);
     }
 }
