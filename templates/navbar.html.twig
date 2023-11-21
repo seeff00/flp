@@ -1,0 +1,102 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #65d500;">
+    <div class="container-fluid">
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarCenteredExample"
+                aria-controls="navbarCenteredExample"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarCenteredExample">
+            {# Navigation Bar #}
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                {# Home #}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('app_home') }}">{{ translations['Home']|trans }}</a>
+                </li>
+
+                {# Aloe vera #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ path('app_aloe_vera') }}" id="navbarDropdown" role="button" data-bs-hover="dropdown" aria-expanded="false">
+                        {{ translations['Aloe vera']|trans }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="{{ path('app_aloe_vera_facts') }}">
+                                {{ translations['Facts by Dr P. Atherton']|trans }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ path('app_aloe_vera_why') }}">
+                                {{ translations['Why should I buy Aloe Vera from Forever Living Products?']|trans }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                {# Our products #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ path('app_products') }}" id="navbarDropdown" role="button" data-bs-hover="dropdown" aria-expanded="false">
+                        {{ translations['Our products']|trans }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ path('app_products_drinks') }}">{{ translations['Drinks']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products_supplements') }}">{{ translations['Supplements and nutrition']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products_essential_oils') }}">{{ translations['Essential oils']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products_bee') }}">{{ translations['Bee products']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products_body_weight') }}">{{ translations['Weight control']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products_facial_care') }}">{{ translations['Facial care']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products_body_care') }}">{{ translations['Body care']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products_personal_hygiene') }}">{{ translations['Personal hygiene']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products_combined_packages') }}">{{ translations['Combined packages']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products_cosmetics_sonya') }}">{{ translations['Cosmetics "Sonya"']|trans }}</a></li>
+                    </ul>
+                </li>
+
+                {# Business opportunities #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ path('app_business_opportunities') }}" id="navbarDropdown" role="button" data-bs-hover="dropdown" aria-expanded="false">
+                        {{ translations['Business opportunities']|trans }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ path('app_network_marketing') }}">{{ translations['Network marketing']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_win_with_flp') }}">{{ translations['10 ways to win with FLP']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_marketing_plan') }}">{{ translations['Marketing plan']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_are_you_ready') }}">{{ translations['Are you ready?']|trans }}</a></li>
+                    </ul>
+                </li>
+
+                {# Useful materials #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ path('app_useful_materials') }}" id="navbarDropdown" role="button" data-bs-hover="dropdown" aria-expanded="false">
+                        {{ translations['Useful materials']|trans }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ path('app_frequently_asked_questions') }}">{{ translations['Frequently asked questions']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_forms_and_documents') }}">{{ translations['Forms and documents']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_online_trainings') }}">{{ translations['Online trainings']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_check_points') }}">{{ translations['Check points']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_online_orders') }}">{{ translations['Online orders']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_good_for_business') }}">{{ translations['Good for business']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_your_achievements') }}">{{ translations['Your achievements']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_start_as_manager') }}">{{ translations['Getting started as a manager']|trans }}</a></li>
+                    </ul>
+                </li>
+
+                {# Contacts #}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('app_contacts') }}">{{ translations['Contacts']|trans }}</a>
+                </li>
+            </ul>
+
+            {# Search #}
+            <form class="form-inline my-2 my-lg-0" style="position: absolute; right: 20px;">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: auto; display: inline;">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>

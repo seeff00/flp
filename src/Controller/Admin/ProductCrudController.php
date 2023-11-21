@@ -21,12 +21,14 @@ class ProductCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title', 'Title'),
-            TextEditorField::new('description', 'Description'),
-            NumberField::new('code', 'Code'),
-            NumberField::new('amount', 'Amount'),
-            AssociationField::new('measurement', 'Measurement')->autocomplete(),
-            MoneyField::new('price', 'Price')->setCurrency('BGN'),
+            IdField::new('id'),
+            TextField::new('title', 'Заглавие'),
+            TextEditorField::new('description', 'Описание'),
+            NumberField::new('code', 'Код'),
+            NumberField::new('amount', 'Количество'),
+            AssociationField::new('measurement', 'Мерна единица')->autocomplete(),
+            AssociationField::new('category', 'Категория')->autocomplete(),
+            MoneyField::new('price', 'Цена')->setCurrency('BGN'),
         ];
     }
 

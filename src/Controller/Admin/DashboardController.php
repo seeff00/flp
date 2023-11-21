@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Image;
 use App\Entity\Measurement;
 use App\Entity\Product;
+use App\Entity\ProductCategory;
 use App\Entity\ProductsImages;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -49,6 +50,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Products', 'fas fa-list', Product::class);
+        yield MenuItem::linkToCrud('Products categories', 'fas fa-list', ProductCategory::class);
         yield MenuItem::linkToCrud('Images', 'fas fa-list', Image::class);
         yield MenuItem::linkToCrud('Measurements', 'fas fa-list', Measurement::class);
         yield MenuItem::linkToCrud('Products Images','fas fa-list',ProductsImages::class);
