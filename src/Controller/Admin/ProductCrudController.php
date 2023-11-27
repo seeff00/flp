@@ -23,11 +23,13 @@ class ProductCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('title', 'Заглавие'),
+            TextField::new('sub_title', 'Под заглавие'),
             TextEditorField::new('description', 'Описание'),
-            NumberField::new('code', 'Код'),
+            TextField::new('code', 'Код'),
             NumberField::new('amount', 'Количество'),
             AssociationField::new('measurement', 'Мерна единица')->autocomplete(),
             AssociationField::new('category', 'Категория')->autocomplete(),
+//            AssociationField::new('productImages', 'Изображения')->autocomplete(),
             MoneyField::new('price', 'Цена')->setCurrency('BGN'),
         ];
     }

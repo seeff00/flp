@@ -1,27 +1,25 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #65d500;">
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
-        <button
-                class="navbar-toggler"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#navbarCenteredExample"
-                aria-controls="navbarCenteredExample"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarCenteredExample">
+        <div class="collapse navbar-collapse justify-content-center" id="main-navbar">
             {# Navigation Bar #}
             <ul class="navbar-nav mb-2 mb-lg-0">
                 {# Home #}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('app_home') }}">{{ translations['Home']|trans }}</a>
+                    <a class="nav-link" href="{{ path('app_home') }}">
+                        <img src="{{ asset('images/icons/home.png') }}" alt="" width="24" height="22" class="d-inline-block align-text-top">
+                        <span>{{ translations['Home']|trans }}</span>
+                    </a>
                 </li>
 
                 {# Aloe vera #}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{{ path('app_aloe_vera') }}" id="navbarDropdown" role="button" data-bs-hover="dropdown" aria-expanded="false">
-                        {{ translations['Aloe vera']|trans }}
+                        <img src="{{ asset('images/icons/aloe_vera.png') }}" alt="" width="26" height="24" class="d-inline-block align-text-top" style="position: relative; top: -4px;">
+                        <span>{{ translations['Aloe vera']|trans }}</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
@@ -37,10 +35,11 @@
                     </ul>
                 </li>
 
-                {# Our products #}
+                {# Products #}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{{ path('app_products') }}" id="navbarDropdown" role="button" data-bs-hover="dropdown" aria-expanded="false">
-                        {{ translations['Our products']|trans }}
+                        <img src="{{ asset('images/icons/package.png') }}" alt="" width="28" height="26" class="d-inline-block align-text-top">
+                        <span>{{ translations['Products']|trans }}</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ path('app_products_drinks') }}">{{ translations['Drinks']|trans }}</a></li>
@@ -59,7 +58,8 @@
                 {# Business opportunities #}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{{ path('app_business_opportunities') }}" id="navbarDropdown" role="button" data-bs-hover="dropdown" aria-expanded="false">
-                        {{ translations['Business opportunities']|trans }}
+                        <img src="{{ asset('images/icons/business.png') }}" alt="" width="32" height="24" class="d-inline-block align-text-top">
+                        <span>{{ translations['Business opportunities']|trans }}</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ path('app_network_marketing') }}">{{ translations['Network marketing']|trans }}</a></li>
@@ -72,7 +72,8 @@
                 {# Useful materials #}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{{ path('app_useful_materials') }}" id="navbarDropdown" role="button" data-bs-hover="dropdown" aria-expanded="false">
-                        {{ translations['Useful materials']|trans }}
+                        <img src="{{ asset('images/icons/marketing.png') }}" alt="" width="26" height="24" class="d-inline-block align-text-top">
+                        <span>{{ translations['Useful materials']|trans }}</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ path('app_frequently_asked_questions') }}">{{ translations['Frequently asked questions']|trans }}</a></li>
@@ -88,15 +89,19 @@
 
                 {# Contacts #}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('app_contacts') }}">{{ translations['Contacts']|trans }}</a>
+                    <a class="nav-link" href="{{ path('app_contacts') }}">
+                        <img src="{{ asset('images/icons/contacts.png') }}" alt="" width="26" height="24" class="d-inline-block align-text-top">
+                        <span>{{ translations['Contacts']|trans }}</span>
+                    </a>
                 </li>
             </ul>
 
             {# Search #}
-            <form class="form-inline my-2 my-lg-0" style="position: absolute; right: 20px;">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: auto; display: inline;">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+{#            <form class="search form-inline my-2 my-lg-0" style="position: absolute; right: 20px;">#}
+{#                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: auto; display: inline;">#}
+{#                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>#}
+{#            </form>#}
         </div>
     </div>
 </nav>
+{% endblock %}

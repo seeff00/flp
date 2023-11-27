@@ -45,4 +45,13 @@ class ProductRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findWithRelations(): array
+    {
+        return $this->createQueryBuilder('p,i')
+            ->innerJoin('products_images', 'pi', null, 'pi.product_id = p.id')
+            ->leftJoin('images', 'i', null, 'pi.image_id = i.id')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

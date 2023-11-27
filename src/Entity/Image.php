@@ -18,7 +18,7 @@ class Image
     #[ORM\Column(length: 255)]
     private ?string $location = null;
 
-    #[ORM\ManyToMany(targetEntity: ProductsImages::class, mappedBy: 'image')]
+    #[ORM\ManyToMany(targetEntity: ProductsImages::class, mappedBy: 'images')]
     private Collection $productsImages;
 
     public function __construct()

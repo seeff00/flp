@@ -19,9 +19,8 @@ class ProductsImagesCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            AssociationField::new('product', 'Продукт')->autocomplete(),
-            AssociationField::new('image', 'Изображение')->autocomplete(),
+            AssociationField::new('product', 'Продукт'),
+            AssociationField::new('images', 'Изображения'),
         ];
     }
 

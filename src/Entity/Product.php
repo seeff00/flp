@@ -16,11 +16,17 @@ class Product
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $title = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $subTitle = null;
+
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $code = null;
+    private ?string $code = null;
 
     #[ORM\Column]
     private ?int $amount = null;
@@ -28,26 +34,47 @@ class Product
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
-
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?Measurement $measurement = null;
-
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductsImages::class)]
-    private Collection $productsImages;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?ProductCategory $category = null;
 
+    #[ORM\OneToMany(mappedBy: 'productImages', targetEntity: ProductsImages::class)]
+    private Collection $productImages;
+
     public function __construct()
     {
-        $this->productsImages = new ArrayCollection();
+        $this->productImages = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): static
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getSubTitle(): ?string
+    {
+        return $this->subTitle;
+    }
+
+    public function setSubTitle(string $subTitle): static
+    {
+        $this->subTitle = $subTitle;
+
+        return $this;
     }
 
     public function getDescription(): ?string
@@ -62,12 +89,12 @@ class Product
         return $this;
     }
 
-    public function getCode(): ?int
+    public function getCode(): ?string
     {
         return $this->code;
     }
 
-    public function setCode(int $code): static
+    public function setCode(string $code): static
     {
         $this->code = $code;
 
@@ -103,18 +130,6 @@ class Product
         return $this->title;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): static
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
     public function getMeasurement(): ?Measurement
     {
         return $this->measurement;
@@ -127,36 +142,6 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection<int, ProductsImages>
-     */
-    public function getProductsImages(): Collection
-    {
-        return $this->productsImages;
-    }
-
-    public function addProductsImage(ProductsImages $productsImage): static
-    {
-        if (!$this->productsImages->contains($productsImage)) {
-            $this->productsImages->add($productsImage);
-            $productsImage->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProductsImage(ProductsImages $productsImage): static
-    {
-        if ($this->productsImages->removeElement($productsImage)) {
-            // set the owning side to null (unless already changed)
-            if ($productsImage->getProduct() === $this) {
-                $productsImage->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCategory(): ?ProductCategory
     {
         return $this->category;
@@ -165,6 +150,36 @@ class Product
     public function setCategory(?ProductCategory $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductsImages>
+     */
+    public function getProductImages(): Collection
+    {
+        return $this->productImages;
+    }
+
+    public function addProductImage(ProductsImages $productImage): static
+    {
+        if (!$this->productImages->contains($productImage)) {
+            $this->productImages->add($productImage);
+            $productImage->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductImage(ProductsImages $productImage): static
+    {
+        if ($this->productImages->removeElement($productImage)) {
+            // set the owning side to null (unless already changed)
+            if ($productImage->getProduct() === $this) {
+                $productImage->setProduct(null);
+            }
+        }
 
         return $this;
     }

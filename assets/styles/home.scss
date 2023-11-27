@@ -1,0 +1,16 @@
+#home-carousel {
+  width: 800px;
+  margin: 20px auto 0;
+}
+
+#home-carousel .carousel-indicators {
+  background-color: #000;
+  opacity: 25%;
+  width: 30%;
+  margin: 20px auto;
+  border-radius: 15px;
+}
+
+#home-carousel .carousel-indicators [data-bs-target] {
+  background-color: #f2e93f;
+}

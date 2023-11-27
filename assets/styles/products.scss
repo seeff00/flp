@@ -1,0 +1,36 @@
+#products-wrapper {
+  //width: 1200px;
+  background-color: #fff;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+//#products-wrapper .products {
+//  padding: 20px;
+//}
+
+#products-wrapper .description {
+  width: 100%;
+}
+
+#products-wrapper .products .row {
+  margin: 0;
+}
+
+#products-wrapper .products .row .column {
+  width: 50%;
+  padding: 10px;
+}
+
+#products-wrapper .products .row .column.left {
+  float: left;
+}
+
+.product.column.right {
+  float: right;
+}
+
+#products-wrapper .products-pagination {
+  padding: 20px 0;
+}

@@ -15,15 +15,15 @@ class ProductsImages
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'productsImages')]
+    #[ORM\ManyToOne(inversedBy: 'productImages')]
     private ?Product $product = null;
 
     #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'productsImages')]
-    private Collection $image;
+    private Collection $images;
 
     public function __construct()
     {
-        $this->image = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,15 +46,15 @@ class ProductsImages
     /**
      * @return Collection<int, Image>
      */
-    public function getImage(): Collection
+    public function getImages(): Collection
     {
-        return $this->image;
+        return $this->images;
     }
 
     public function addImage(Image $image): static
     {
-        if (!$this->image->contains($image)) {
-            $this->image->add($image);
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
         }
 
         return $this;
@@ -62,7 +62,7 @@ class ProductsImages
 
     public function removeImage(Image $image): static
     {
-        $this->image->removeElement($image);
+        $this->images->removeElement($image);
 
         return $this;
     }
