@@ -1,6 +1,10 @@
 @import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 @import 'navbar';
+@import 'footer';
+@import "home";
+@import "products";
 
 @font-face {
     font-family: 'Comfortaa';
@@ -9,6 +13,98 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'ZnikomitNo24';
+    src: url('./fonts/Exo2Mediumexpanded.otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
 body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
     background-color: lightgray;
+}
+
+//img, picture, video, canvas, svg {
+//    display: block;
+//    max-width: 100%;
+//}
+
+input, button, textarea, select {
+    font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+#root, #__next {
+    isolation: isolate;
+}
+
+//body {
+//    background-color: lightgray;
+//    margin: 0;
+//    padding: 0;
+//}
+
+header {
+    background-color: #fff;
+    //background-image: url("../../public/images/header/pngegg.png");
+    width: 100%;
+    display: inline-block;
+    //background-position-y: -160px;
+    //background-size: cover;
+    text-align: center;
+}
+
+//#header-left, #header-right {
+//    width: 25%;
+//}
+
+//#header-left img, #header-right img{
+//    width: 120px;
+//    height: 120px
+//}
+
+//#header-left, #header-center {
+//    float: left;
+//}
+
+//#header-center {
+//    width: 100%;
+//}
+
+//#header-right {
+//    float: right;
+//}
+
+#flp-header-title {
+    width: 100%;
+    text-align: center;
+    //background-color: #fff;
+    font-size: 20px;
+    padding-bottom: 20px;
+}
+
+#flp-header {
+    //width: 100%;
+    //text-align: center;
+    display: inline-block;
+    //background-color: #fff;
+    padding: 20px 0 0 0;
+}
+
+#flp-header img {
+    width: 260px;
+    display: inline-block;
 }

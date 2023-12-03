@@ -8,6 +8,7 @@ use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Entity\ProductsImages;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -47,12 +48,12 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
-        yield MenuItem::linkToCrud('Products', 'fas fa-list', Product::class);
-        yield MenuItem::linkToCrud('Products categories', 'fas fa-list', ProductCategory::class);
-        yield MenuItem::linkToCrud('Images', 'fas fa-list', Image::class);
-        yield MenuItem::linkToCrud('Measurements', 'fas fa-list', Measurement::class);
-        yield MenuItem::linkToCrud('Products Images','fas fa-list',ProductsImages::class);
+        yield MenuItem::linkToDashboard('Табло', 'fa fa-home');
+        yield MenuItem::linkToCrud('Потребители', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Продукти', 'fas fa-list', Product::class);
+        yield MenuItem::linkToCrud('Продуктови категорий', 'fas fa-list', ProductCategory::class);
+        yield MenuItem::linkToCrud('Изображения', 'fas fa-list', Image::class);
+        yield MenuItem::linkToCrud('Мерни единици', 'fas fa-list', Measurement::class);
+//        yield MenuItem::linkToCrud('Продуктови изображения','fas fa-list',ProductsImages::class);
     }
 }

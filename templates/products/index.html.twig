@@ -3,18 +3,78 @@
 {% block title %}Hello ProductsController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/seeff00/PhpstormProjects/flp/src/Controller/ProductsController.php'|file_link(0) }}">src/Controller/ProductsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/seeff00/PhpstormProjects/flp/templates/products/index.html.twig'|file_link(0) }}">templates/products/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div id="products-wrapper" class="wrapper container mt-5">
+        <div class="description">
+            What is Lorem Ipsum?
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+            Why do we use it?
+            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+        </div>
+        <table class="table datagrid">
+            <tbody>
+            <tr>
+                {% for product in products %}
+{#                {{ dump(product.getProductImages()) }}#}
+                {% if (loop.index - 1) is divisible by(2) and (loop.index - 1) > 0 %}
+            </tr>
+            <tr>
+                {% endif %}
+{#                {{ dump(product.productImages) }}#}
+                <div class="product column left">
+                    <div class="product-image">
+{#                        {% for productImage in product.getProductImages().getImages() %}#}
+                            {{ dump(product.getImages()) }}
+{#                            <img src="/public/uploads/attachments/{{  }}" alt="product image">#}
+{#                        {% endfor %}#}
+                    </div>
+                    <div class="product-title">{{ product.title }}</div>
+                    <div class="product-subtitle">{{ product.subTitle }}</div>
+                    <div class="product-description">{{ product.description }}</div>
+                    <div class="product-details">
+                        <div class="product-code">{{ product.code }}</div>
+                        <div class="product-amount">{{ product.amount }}<span>{{ product.measurement.title }}</span></div>
+                        <div class="product-price">{{ product.price }}</div>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+
+        {% if number_of_pages > 0 %}
+        <nav class="products-pagination" aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% for i in range(1, number_of_pages) %}
+                    <li class="page-item"><a class="page-link" href="{{ path('app_products', {page: i, limit: limit, category:category_id }) }}">{{ i }}</a></li>
+                {% endfor %}
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
 {% endblock %}
