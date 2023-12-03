@@ -26,7 +26,7 @@ class ProductsController extends AbstractController
     {
         $page = $request->query->get('page');;
         $limit = $request->query->get('limit');;
-        $category = $request->query->get('category');;
+        $category = $request->query->get('cid');;
 
         if ($page == 0) {
             $page = 1;
@@ -54,14 +54,14 @@ class ProductsController extends AbstractController
 //        $p = $entityManager->getRepository(Product::class)->findBy(['category' => $category]);
 //        $products = $entityManager->getRepository(Product::class)->findBy(['category' => $category], null, $limit, $offset);
 
-        if (!$products) {
-            throw $this->createNotFoundException(
-                'No product found for category 1'
-            );
-        }
+//        if (!$products) {
+//            throw $this->createNotFoundException(
+//                'No product found for category 1'
+//            );
+//        }
 
 
-//        print_r($products[4]->getProductImages());
+//        print_r($p);
 //        exit;
 
         return $this->render('products/index.html.twig', [

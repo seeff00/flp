@@ -3,10 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\ImageRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
 {
@@ -15,15 +20,44 @@ class Image
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $location = null;
+    #[Vich\UploadableField(mapping:"product_images", fileNameProperty:"imageName")]
+    #[Assert\File()]
+    private File $imageFile;
 
-    #[ORM\ManyToMany(targetEntity: ProductsImages::class, mappedBy: 'images')]
-    private Collection $productsImages;
+    #[ORM\Column(type:"string", nullable:false)]
+    private ?string $imageName = null;
+
+    #[ORM\Column(type:"datetime")]
+    private DateTime $updatedAt;
+
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    private ?Product $product = null;
+
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'images')]
+    private Collection $products;
 
     public function __construct()
     {
-        $this->productsImages = new ArrayCollection();
+        $this->products = new ArrayCollection();
+    }
+
+    public function getImageFile(): File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     *
+     * @param File|null $image
+     * @return Image
+     */
+    public function setImageFile(File $image = null): Image
+    {
+        $this->imageFile = $image;
+        if ($image instanceof File) {
+            $this->updatedAt = new DateTime();
+        }
+        return $this;
     }
 
     public function getId(): ?int
@@ -31,47 +65,91 @@ class Image
         return $this->id;
     }
 
-    public function getLocation(): ?string
+    /**
+     * Set updatedAt
+     *
+     * @param DateTime $updatedAt
+     *
+     * @return Image
+     */
+    public function setUpdatedAt(DateTime $updatedAt): static
     {
-        return $this->location;
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+    /**
+     * Get updatedAt
+     *
+     * @return DateTime
+     */
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updatedAt;
     }
 
-    public function setLocation(string $location): static
+    /**
+     * Set imageName
+     *
+     * @param string|null $imageName
+     *
+     * @return Image
+     */
+    public function setImageName(?string $imageName): static
     {
-        $this->location = $location;
+        $this->imageName = $imageName;
+        return $this;
+    }
+    /**
+     * Get imageName
+     *
+     * @return string|null
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function __toString(): string
+    {
+        return $this->imageName;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): static
+    {
+        $this->product = $product;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, ProductsImages>
+     * @return Collection<int, Product>
      */
-    public function getProductsImages(): Collection
+    public function getProducts(): Collection
     {
-        return $this->productsImages;
+        return $this->products;
     }
 
-    public function addProductsImage(ProductsImages $productsImage): static
+    public function addProduct(Product $product): static
     {
-        if (!$this->productsImages->contains($productsImage)) {
-            $this->productsImages->add($productsImage);
-            $productsImage->addImage($this);
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->addImage($this);
         }
 
         return $this;
     }
 
-    public function removeProductsImage(ProductsImages $productsImage): static
+    public function removeProduct(Product $product): static
     {
-        if ($this->productsImages->removeElement($productsImage)) {
-            $productsImage->removeImage($this);
+        if ($this->products->removeElement($product)) {
+            $product->removeImage($this);
         }
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->location;
     }
 }

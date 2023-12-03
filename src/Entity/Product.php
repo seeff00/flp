@@ -40,12 +40,12 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?ProductCategory $category = null;
 
-    #[ORM\OneToMany(mappedBy: 'productImages', targetEntity: ProductsImages::class)]
-    private Collection $productImages;
+    #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'products')]
+    private Collection $images;
 
     public function __construct()
     {
-        $this->productImages = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,11 +125,6 @@ class Product
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->title;
-    }
-
     public function getMeasurement(): ?Measurement
     {
         return $this->measurement;
@@ -154,32 +149,31 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection<int, ProductsImages>
-     */
-    public function getProductImages(): Collection
+    public function __toString(): string
     {
-        return $this->productImages;
+        return $this->title;
     }
 
-    public function addProductImage(ProductsImages $productImage): static
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
     {
-        if (!$this->productImages->contains($productImage)) {
-            $this->productImages->add($productImage);
-            $productImage->setProduct($this);
+        return $this->images;
+    }
+
+    public function addImage(Image $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
         }
 
         return $this;
     }
 
-    public function removeProductImage(ProductsImages $productImage): static
+    public function removeImage(Image $image): static
     {
-        if ($this->productImages->removeElement($productImage)) {
-            // set the owning side to null (unless already changed)
-            if ($productImage->getProduct() === $this) {
-                $productImage->setProduct(null);
-            }
-        }
+        $this->images->removeElement($image);
 
         return $this;
     }

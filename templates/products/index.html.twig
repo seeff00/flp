@@ -29,22 +29,25 @@
             <tbody>
             <tr>
                 {% for product in products %}
-                {{ dump(product.getProductImages()) }}
+{#                {{ dump(product.getProductImages()) }}#}
                 {% if (loop.index - 1) is divisible by(2) and (loop.index - 1) > 0 %}
             </tr>
             <tr>
                 {% endif %}
-
+{#                {{ dump(product.productImages) }}#}
                 <div class="product column left">
                     <div class="product-image">
-                        <img src="" alt="product image">
+{#                        {% for productImage in product.getProductImages().getImages() %}#}
+                            {{ dump(product.getImages()) }}
+{#                            <img src="/public/uploads/attachments/{{  }}" alt="product image">#}
+{#                        {% endfor %}#}
                     </div>
                     <div class="product-title">{{ product.title }}</div>
-                    <div class="product-subtitle"></div>
+                    <div class="product-subtitle">{{ product.subTitle }}</div>
                     <div class="product-description">{{ product.description }}</div>
                     <div class="product-details">
                         <div class="product-code">{{ product.code }}</div>
-                        <div class="product-amount">{{ product.amount }}</div>
+                        <div class="product-amount">{{ product.amount }}<span>{{ product.measurement.title }}</span></div>
                         <div class="product-price">{{ product.price }}</div>
                     </div>
                 </div>
@@ -54,6 +57,7 @@
             </tbody>
         </table>
 
+        {% if number_of_pages > 0 %}
         <nav class="products-pagination" aria-label="Page navigation">
             <ul class="pagination justify-content-center">
                 <li class="page-item">
@@ -71,5 +75,6 @@
                 </li>
             </ul>
         </nav>
+        {% endif %}
     </div>
 {% endblock %}

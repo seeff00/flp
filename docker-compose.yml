@@ -27,7 +27,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
     volumes:
-      - mysql-volume:/var/lib/mysql
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
     expose:
       - 3306
     ports:
@@ -50,7 +50,7 @@ services:
     container_name: redis-commander
     image: rediscommander/redis-commander:latest
     ports:
-      - 8008:8081
+      - "8008:8081"
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379

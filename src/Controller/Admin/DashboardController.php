@@ -54,6 +54,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Продуктови категорий', 'fas fa-list', ProductCategory::class);
         yield MenuItem::linkToCrud('Изображения', 'fas fa-list', Image::class);
         yield MenuItem::linkToCrud('Мерни единици', 'fas fa-list', Measurement::class);
-        yield MenuItem::linkToCrud('Продуктови изображения','fas fa-list',ProductsImages::class);
+//        yield MenuItem::linkToCrud('Продуктови изображения','fas fa-list',ProductsImages::class);
     }
 }
