@@ -30,23 +30,31 @@ $(function() {
     //     touch: false,
     //     keyboard: false,
     // })
-    const myModal = document.getElementById('basicExampleModal')
-    const myInput = document.getElementById('request')
-    myModal.addEventListener('shown.bs.modal', () => {
-        myInput.focus()
-    })
 
-    const orderModal = document.getElementById('orderModal')
-    const orderInput = document.getElementById('request')
-    orderModal.addEventListener('shown.bs.modal', () => {
-        orderInput.focus()
-    })
+    // const productsCount = $('.product').length;
+    // $(productsCount).each(function(i,x){
+    //    console.log(i);
+    // });
 
-
-    // $('.btn.request').on('shown.bs.modal', function () {
-    //     $('#basicExampleModal').trigger('focus')
-    //     // console.log("Test");
+    // const myModal = document.getElementById('basicExampleModal')
+    // const myInput = document.getElementById('request')
+    // myModal.addEventListener('shown.bs.modal', () => {
+    //     myInput.focus()
     // })
+    //
+    // const requestModal = document.getElementById('requestModal')
+    // const orderInput = document.getElementById('request')
+    // requestModal.addEventListener('shown.bs.modal', () => {
+    //     orderInput.focus()
+    // })
+
+    // document.getElementById("sendProductRequest").onclick = function () {
+    //     console.log("Clicked")
+    // };
+
+    $('#sendProductRequest').on('click', function (e) {
+        console.log("Clicked")
+    });
 
     $('.pop').on('click', function () {
         console.log('clicked');

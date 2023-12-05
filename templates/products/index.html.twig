@@ -57,13 +57,13 @@
                     <span class="product-price right"><b>{{ translations['PCP']|trans }}</b><span class="tooltiptext">Препоръчителна цена за потребители</span><br/><span>{{ (product.price / 100) |format_currency('BGN') }}</span></span>
                 </div>
                     <div class="product-order">
-                        <button id="request" type="button" class="btn btn-info btn-lg btn-block request" data-bs-toggle="modal" data-bs-target="#basicExampleModal">{{ translations['More']|trans }}</button>
-                        <button id="request" type="button" class="btn btn-warning btn-lg btn-block request" data-bs-toggle="modal" data-bs-target="#orderModal">Заяви</button>
+                        <button id="more" type="button" class="btn btn-info btn-lg btn-block request" data-bs-toggle="modal" data-bs-target="#basicExampleModal-{{ product.id }}">{{ translations['More']|trans }}</button>
+                        <button id="request" type="button" class="btn btn-warning btn-lg btn-block request" data-bs-toggle="modal" data-bs-target="#requestModal-{{ product.id }}">Заяви</button>
                     </div>
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                <div class="modal fade" id="basicExampleModal-{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -100,7 +100,24 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <p class="product-description">{{ product.description }}</p>
+                                    <p class="product-description"><b>{{ translations['Description']|trans }}: </b>{{ product.description | raw }}</p>
+                                    <hr/>
+                                    {%  if product.ingredients is not empty %}
+                                        <p class="product-ingredients"><b>{{ translations['Ingredients']|trans }}: </b>{{ product.ingredients }}</p>
+                                        <hr/>
+                                    {% endif %}
+                                    {%  if product.recommendedUse is not empty %}
+                                        <p class="product-recommended-use"><b>{{ translations['Recommended use']|trans }}: </b>{{ product.recommendedUse }}</p>
+                                        <hr/>
+                                    {% endif %}
+                                    {%  if product.storageConditions is not empty %}
+                                        <p class="product-storage-conditions"><b>{{ translations['Storage conditions']|trans }}: </b>{{ product.storageConditions }}</p>
+                                        <hr/>
+                                    {% endif %}
+                                    {%  if product.mainCharacteristics is not empty %}
+                                        <p class="product-main-characteristics"><b>{{ translations['Main characteristics']|trans }}: </b>{{ product.mainCharacteristics }}</p>
+                                        <hr/>
+                                    {% endif %}
                                     <div class="product-details">
                                         <span class="product-code left"><b>{{ translations['Code']|trans }}</b><br/><span>{{ product.code }}</span></span>
                                         <span class="product-amount left"><b>{{ translations['Amount']|trans }}</b><br/><span>{{ product.amount }}</span><span class="product-detail">{{ product.measurement.title }}</span></span>
@@ -110,48 +127,53 @@
                             </div>
                             <div class="modal-footer">
                                 <div class="product-order">
-                                    <button id="request" type="button" class="btn btn-warning btn-lg btn-block request" data-bs-toggle="modal" data-bs-target="#orderModal">Заяви</button>
+                                    <button id="request" type="button" class="btn btn-warning btn-lg btn-block request" data-bs-toggle="modal" data-bs-target="#requestModal-{{ product.id }}">Заяви</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel"
+                {# Modal Request #}
+                <div class="modal fade requestModal" id="requestModal-{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
-                                <form wire:submit.prevent="send">
+                                <div class="column">
+                                    <div class="head">
+                                        <span class="headline title">{{ translations['Request for product']|trans }}</span><br/>
+                                    </div>
+                                </div>
+                                <form>
                                     <div class="required">
-                                        <input wire:model.defer="name" placeholder="Име, Фамилия" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                        <label>
+                                            <input placeholder="Име, Фамилия" type="text" class="block w-full px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                        </label>
                                     </div>
                                     <div class="required">
-                                        <input wire:model.defer="tel" placeholder="Телефон" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                        <label>
+                                            <input placeholder="Телефон" type="text" class="block w-full px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                        </label>
                                     </div>
                                     <div class="required">
-                                        <input wire:model.defer="email" placeholder="Имейл" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                        <label>
+                                            <input placeholder="Имейл" type="text" class="block w-full px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                        </label>
                                     </div>
                                     <div class="required">
-                                        <textarea wire:model.defer="message" placeholder="Съобщение" class="block w-full h-48 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">					</textarea>
+                                        <label>
+                                            <textarea rows="4" placeholder="Съобщение" class="block w-full h-48 px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">{{ (translations['Request for'] ~ ' "' ~ product.subTitle ~ '" ' ~ translations['1 count with code'] ~ ' "' ~ product.code ~ '".') | trans }}</textarea>
+                                        </label>
                                     </div>
                                     <div class="flex justify-between mt-6">
-                                        <a @click="show = false" class="cursor-pointer px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-600 rounded-md hover:bg-red-400 focus:outline-none focus:bg-gray-600">
-                                            Откажи
-                                        </a>
-
-                                        <button class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-aloe-green-dark rounded-md hover:bg-aloe-green-nav-hover focus:outline-none focus:bg-gray-600">
-                                            Изпрати
-                                            <div wire:target="send" wire:loading="" class="mr-2">
-                                                <span> Изпращане... </span>
-                                            </div>
-                                        </button>
+                                    {# TODO #}
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
                                 <div class="product-order">
-                                    <button id="request" type="button" class="btn btn-primary btn-lg btn-block request">{{ translations['Send']|trans }}</button>
+                                    <button id="sendProductRequest" class="btn btn-warning btn-lg btn-block request">{{ translations['Send']|trans }}</button>
                                 </div>
                             </div>
                         </div>
