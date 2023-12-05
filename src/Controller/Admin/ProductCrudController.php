@@ -28,7 +28,7 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('sub_title', 'Под заглавие'),
             TextareaField::new('description', 'Описание')->renderAsHtml(),
             TextField::new('code', 'Код'),
-            NumberField::new('amount', 'Количество'),
+            NumberField::new('amount', 'Количество')->setNumberFormat('%0.2f'),
             AssociationField::new('measurement', 'Мерна единица')->autocomplete(),
             AssociationField::new('category', 'Категория')->autocomplete(),
             AssociationField::new('images', 'Изображения')->autocomplete(),

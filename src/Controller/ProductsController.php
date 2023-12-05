@@ -33,7 +33,7 @@ class ProductsController extends AbstractController
         }
 
         if ($limit == 0) {
-            $limit = 5;
+            $limit = 9;
         }
 
         if ($category == 0) {
@@ -49,7 +49,8 @@ class ProductsController extends AbstractController
 //        print_r($r);
 //        exit;
 
-        $p = $pr->findBy(['category' => $category]);
+        $numberOfProducts = $pr->count(['category' => $category]);
+//        $p = $pr->findBy(['category' => $category]);
         $products = $pr->findBy(['category' => $category], null, $limit, $offset);
 //        $p = $entityManager->getRepository(Product::class)->findBy(['category' => $category]);
 //        $products = $entityManager->getRepository(Product::class)->findBy(['category' => $category], null, $limit, $offset);
@@ -60,15 +61,22 @@ class ProductsController extends AbstractController
 //            );
 //        }
 
+        $productsImages = [];
+        foreach ($products as $product) {
+            foreach ($product->getImages() as $image) {
+                $productsImages[$product->getId()][] = $image->getImageName();
+            }
+        }
 
-//        print_r($p);
+//        print_r($productsImages);
 //        exit;
 
         return $this->render('products/index.html.twig', [
             'controller_name' => 'ProductsController',
             'translations' => $this->translations,
             'products' => $products,
-            'number_of_pages' => ceil(count($p) / $limit),
+            'productsImages' => $productsImages,
+            'number_of_pages' => ceil($numberOfProducts / $limit),
             'limit' => $limit,
             'category_id' => $category,
         ]);

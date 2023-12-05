@@ -31,7 +31,7 @@ class Product
     #[ORM\Column]
     private ?int $amount = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: "decimal", precision: 7, scale: 2)]
     private ?float $price = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
@@ -42,6 +42,18 @@ class Product
 
     #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'products')]
     private Collection $images;
+
+    #[ORM\Column(length: 500)]
+    private ?string $ingredients = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $recomended_use = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $storage_conditions = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $main_characteristics = null;
 
     public function __construct()
     {
@@ -113,18 +125,6 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): static
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
     public function getMeasurement(): ?Measurement
     {
         return $this->measurement;
@@ -174,6 +174,64 @@ class Product
     public function removeImage(Image $image): static
     {
         $this->images->removeElement($image);
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): void
+    {
+        $this->price = $price;
+    }
+
+    public function getIngredients(): ?string
+    {
+        return $this->ingredients;
+    }
+
+    public function setIngredients(string $ingredients): static
+    {
+        $this->ingredients = $ingredients;
+
+        return $this;
+    }
+
+    public function getRecomendedUse(): ?string
+    {
+        return $this->recomended_use;
+    }
+
+    public function setRecomendedUse(string $recomended_use): static
+    {
+        $this->recomended_use = $recomended_use;
+
+        return $this;
+    }
+
+    public function getStorageConditions(): ?string
+    {
+        return $this->storage_conditions;
+    }
+
+    public function setStorageConditions(string $storage_conditions): static
+    {
+        $this->storage_conditions = $storage_conditions;
+
+        return $this;
+    }
+
+    public function getMainCharacteristics(): ?string
+    {
+        return $this->main_characteristics;
+    }
+
+    public function setMainCharacteristics(string $main_characteristics): static
+    {
+        $this->main_characteristics = $main_characteristics;
 
         return $this;
     }
