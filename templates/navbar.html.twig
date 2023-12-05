@@ -42,16 +42,16 @@
                         <span>{{ translations['Products']|trans }}</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ path('app_products_drinks') }}">{{ translations['Drinks']|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_products_supplements') }}">{{ translations['Supplements and nutrition']|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_products_essential_oils') }}">{{ translations['Essential oils']|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_products_bee') }}">{{ translations['Bee products']|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_products_body_weight') }}">{{ translations['Weight control']|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_products_facial_care') }}">{{ translations['Facial care']|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_products_body_care') }}">{{ translations['Body care']|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_products_personal_hygiene') }}">{{ translations['Personal hygiene']|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_products_combined_packages') }}">{{ translations['Combined packages']|trans }}</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_products_cosmetics_sonya') }}">{{ translations['Cosmetics "Sonya"']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products', {'category':1}) }}">{{ translations['Drinks']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products', {'category':2}) }}">{{ translations['Supplements and nutrition']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products', {'category':3}) }}">{{ translations['Essential oils']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products', {'category':4}) }}">{{ translations['Bee products']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products', {'category':5}) }}">{{ translations['Weight control']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products', {'category':6}) }}">{{ translations['Facial care']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products', {'category':7}) }}">{{ translations['Body care']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products', {'category':8}) }}">{{ translations['Personal hygiene']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products', {'category':9}) }}">{{ translations['Combined packages']|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_products', {'category':10}) }}">{{ translations['Cosmetics "Sonya"']|trans }}</a></li>
                     </ul>
                 </li>
 
