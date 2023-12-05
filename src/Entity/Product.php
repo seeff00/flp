@@ -29,7 +29,7 @@ class Product
     private ?string $code = null;
 
     #[ORM\Column]
-    private ?int $amount = null;
+    private ?string $amount = null;
 
     #[ORM\Column(type: "decimal", precision: 7, scale: 2)]
     private ?float $price = null;
@@ -43,16 +43,16 @@ class Product
     #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'products')]
     private Collection $images;
 
-    #[ORM\Column(length: 500)]
+    #[ORM\Column(length: 2000, nullable: true)]
     private ?string $ingredients = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $recomended_use = null;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $recommended_use = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $storage_conditions = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $main_characteristics = null;
 
     public function __construct()
@@ -113,12 +113,12 @@ class Product
         return $this;
     }
 
-    public function getAmount(): ?int
+    public function getAmount(): ?string
     {
         return $this->amount;
     }
 
-    public function setAmount(int $amount): static
+    public function setAmount(string $amount): static
     {
         $this->amount = $amount;
 
@@ -193,21 +193,21 @@ class Product
         return $this->ingredients;
     }
 
-    public function setIngredients(string $ingredients): static
+    public function setIngredients(?string $ingredients): static
     {
         $this->ingredients = $ingredients;
 
         return $this;
     }
 
-    public function getRecomendedUse(): ?string
+    public function getRecommendedUse(): ?string
     {
-        return $this->recomended_use;
+        return $this->recommended_use;
     }
 
-    public function setRecomendedUse(string $recomended_use): static
+    public function setRecommendedUse(?string $recommended_use): static
     {
-        $this->recomended_use = $recomended_use;
+        $this->recommended_use = $recommended_use;
 
         return $this;
     }
@@ -217,7 +217,7 @@ class Product
         return $this->storage_conditions;
     }
 
-    public function setStorageConditions(string $storage_conditions): static
+    public function setStorageConditions(?string $storage_conditions): static
     {
         $this->storage_conditions = $storage_conditions;
 
@@ -229,7 +229,7 @@ class Product
         return $this->main_characteristics;
     }
 
-    public function setMainCharacteristics(string $main_characteristics): static
+    public function setMainCharacteristics(?string $main_characteristics): static
     {
         $this->main_characteristics = $main_characteristics;
 

@@ -26,19 +26,28 @@ class ProductCrudController extends AbstractCrudController
         return [
             TextField::new('title', 'Заглавие'),
             TextField::new('sub_title', 'Под заглавие'),
-            TextareaField::new('description', 'Описание')->renderAsHtml(),
+            TextareaField::new('description', 'Описание')->renderAsHtml()->onlyWhenCreating(),
+            TextareaField::new('description', 'Описание')->renderAsHtml()->onlyWhenUpdating(),
+            TextField::new('description', 'Описание')->onlyOnIndex()->setMaxLength(100),
+            TextareaField::new('ingredients', 'Съставки')->renderAsHtml()->onlyWhenUpdating(),
+            TextareaField::new('ingredients', 'Съставки')->renderAsHtml()->onlyWhenCreating(),
+            TextField::new('ingredients', 'Съставки')->onlyOnIndex()->setMaxLength(100),
+            TextareaField::new('recommendedUse', 'Употреба')->renderAsHtml()->onlyWhenCreating(),
+            TextareaField::new('recommendedUse', 'Употреба')->renderAsHtml()->onlyWhenUpdating(),
+            TextField::new('recommendedUse', 'Употреба')->onlyOnIndex()->setMaxLength(100),
+            TextareaField::new('storageConditions', 'Съхранение')->renderAsHtml()->onlyWhenCreating(),
+            TextareaField::new('storageConditions', 'Съхранение')->renderAsHtml()->onlyWhenUpdating(),
+            TextField::new('storageConditions', 'Съхранение')->onlyOnIndex()->setMaxLength(100),
+            TextareaField::new('mainCharacteristics', 'Характеристики')->renderAsHtml()->onlyWhenCreating(),
+            TextareaField::new('mainCharacteristics', 'Характеристики')->renderAsHtml()->onlyWhenUpdating(),
+            TextField::new('mainCharacteristics', 'Характеристики')->onlyOnIndex()->setMaxLength(100),
             TextField::new('code', 'Код'),
-            NumberField::new('amount', 'Количество')->setNumberFormat('%0.2f'),
+            TextField::new('amount', 'Количество'),
             AssociationField::new('measurement', 'Мерна единица')->autocomplete(),
             AssociationField::new('category', 'Категория')->autocomplete(),
-            AssociationField::new('images', 'Изображения')->autocomplete(),
-//            TextField::new('images', 'Изображение')
-//                ->setFormType(VichImageType::class)
-//                ->onlyWhenUpdating(),
-//            ImageField::new('images', 'Изображение')
-//                ->setUploadDir('/uploads/attachments')
-//                ->onlyOnIndex()
-//                ->setBasePath('/uploads/attachments'),
+            AssociationField::new('images', 'Изображения')->autocomplete()->onlyWhenCreating(),
+            AssociationField::new('images', 'Изображения')->autocomplete()->onlyWhenUpdating(),
+            AssociationField::new('images', 'Изображения')->hideOnIndex(),
             MoneyField::new('price', 'Цена')->setCurrency('BGN'),
         ];
     }

@@ -286,7 +286,11 @@
   margin: 0 auto;
 }
 
-.product .product-description {
+.product .product-description,
+.product .product-ingredients,
+.product .product-recommended-use,
+.product .product-storage-conditions,
+.product .product-main-characteristics {
   padding: 0 20px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -295,7 +299,7 @@
 }
 
 #products-wrapper .product-details {
-  font-size: 18px;
+  font-size: 17px;
   text-align: center;
   margin-top: 30px;
 }
@@ -340,9 +344,8 @@
   position: absolute;
   z-index: 1;
   font-size: 16px;
-  //border: 2px dotted #000;
-  top: -50px;
-  left: 80px;
+  top: -42px;
+  left: 96px;
 }
 
 .product-details .product-price:hover .tooltiptext {
@@ -369,8 +372,7 @@
 
 // Modal
 .modal-body {
-  //overflow: auto;
-  //height: 300px;
+  padding-bottom: 0;
 }
 
 .modal-body .product .product-description {
@@ -385,10 +387,52 @@
   margin-bottom: 1em;
 }
 
-#orderModal .modal-dialog {
-  max-width: 400px;
+.requestModal .modal-dialog {
+  max-width: 400px !important;
 }
 
-#orderModal .modal-dialog .modal-body div input, #orderModal .modal-dialog .modal-body div textarea {
+.modal-dialog .modal-body div input,
+.modal-dialog .modal-body div textarea,
+.modal-dialog .modal-body div label {
   width: 100%;
+}
+
+.modal-body .product .product-description,
+.modal-body .product .product-ingredients,
+.modal-body .product .product-recommended-use,
+.modal-body .product .product-storage-conditions,
+.modal-body .product .product-main-characteristics {
+  height: auto;
+}
+
+.modal-body .product .product-description {
+  margin-top: 20px;
+}
+
+.modal-body .product b {
+  font-size: 17px;
+}
+
+.modal-body .column {
+  margin: 0;
+}
+
+.modal-body .head .title {
+  font-size: 26px;
+  text-transform: uppercase;
+  font-family: ZnikomitNo24,serif;
+}
+
+.modal-body .product-details .product-price .tooltiptext {
+  left: 140px;
+  top: -30px;
+}
+
+.modal-body .required input, .modal-body .required textarea {
+  font-family: ZnikomitNo24,serif;
+}
+
+.modal-body .carousel {
+  width: 60%;
+  margin: 0 auto;
 }
