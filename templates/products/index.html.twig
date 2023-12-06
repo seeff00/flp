@@ -145,36 +145,43 @@
                                         <span class="headline title">{{ translations['Request for product']|trans }}</span><br/>
                                     </div>
                                 </div>
-                                <form>
+                                <form id="request-form-{{ product.id }}">
                                     <div class="required">
                                         <label>
-                                            <input placeholder="Име, Фамилия" type="text" class="block w-full px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                            <input name="name" placeholder="Име, Фамилия" type="text" class="block w-full px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
                                         </label>
                                     </div>
                                     <div class="required">
                                         <label>
-                                            <input placeholder="Телефон" type="text" class="block w-full px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                            <input name="phone" placeholder="Телефон" type="text" class="block w-full px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
                                         </label>
                                     </div>
                                     <div class="required">
                                         <label>
-                                            <input placeholder="Имейл" type="text" class="block w-full px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                            <input name="email" placeholder="Имейл" type="text" class="block w-full px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
                                         </label>
                                     </div>
                                     <div class="required">
                                         <label>
-                                            <textarea rows="4" placeholder="Съобщение" class="block w-full h-48 px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">{{ (translations['Request for'] ~ ' "' ~ product.subTitle ~ '" ' ~ translations['1 count with code'] ~ ' "' ~ product.code ~ '".') | trans }}</textarea>
+                                            <textarea name="message" rows="4" placeholder="Съобщение" class="block w-full h-48 px-2 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">{{ (translations['Request for 1 count'] ~ ' "' ~ product.subTitle ~ '" ' ~ translations['with code'] ~ ' "' ~ product.code ~ '".') | trans }}</textarea>
                                         </label>
                                     </div>
+                                    <input type="hidden" name="pid" value="{{ product.id }}" />
                                     <div class="flex justify-between mt-6">
-                                    {# TODO #}
+                                        <div class="message" style="display: none;"></div>
+                                        <div class="product-order">
+                                            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                                            <input type="hidden" name="action" value="validate_captcha">
+                                            <button id="sendProductRequest"
+                                                    type="submit"
+                                                    class="btn btn-warning btn-lg btn-block request"
+                                                    data-sitekey="6LdX9CcpAAAAAHsbVpU56Az2rSTDJf4q7oCvys3z"
+                                                    data-action='submit'>
+                                                {{ translations['Send']|trans }}
+                                            </button>
+                                        </div>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="product-order">
-                                    <button id="sendProductRequest" class="btn btn-warning btn-lg btn-block request">{{ translations['Send']|trans }}</button>
-                                </div>
                             </div>
                         </div>
                     </div>

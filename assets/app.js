@@ -4,7 +4,6 @@ import bsCustomFileInput from 'bs-custom-file-input';
 import './bootstrap';
 
 const $ = require('jquery');
-
 global.$ = global.jQuery = $;
 
 bsCustomFileInput.init();
@@ -48,12 +47,71 @@ $(function() {
     //     orderInput.focus()
     // })
 
-    // document.getElementById("sendProductRequest").onclick = function () {
-    //     console.log("Clicked")
-    // };
+    // grecaptcha.ready(function() {
+    //     // do request for recaptcha token
+    //     // response is promise with passed token
+    //     grecaptcha.execute('6LdX9CcpAAAAAHsbVpU56Az2rSTDJf4q7oCvys3z', {action:'validate_captcha'})
+    //         .then(function(token) {
+    //             // add token value to form
+    //             document.getElementById('g-recaptcha-response').value = token;
+    //         });
+    // });
 
-    $('#sendProductRequest').on('click', function (e) {
-        console.log("Clicked")
+    // function onClick(e) {
+    //     e.preventDefault();
+    // $('.requestModal form').on('submit', function (e) {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     const $form = $(this);
+    //     grecaptcha.ready(function() {
+    //         grecaptcha.execute('6LdX9CcpAAAAAHsbVpU56Az2rSTDJf4q7oCvys3z', {action: 'submit'}).then(function(token) {
+    //             // Add your logic to submit to your backend server here.
+    //             console.log($($form).serializeArray());
+    //         });
+    //     });
+    // });
+
+    $('.requestModal form').on('submit', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const $form = $(this);
+        let $message = $(e.target).parent().find('.message')
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LdX9CcpAAAAAHsbVpU56Az2rSTDJf4q7oCvys3z', {action:'validate_captcha'})
+                .then(function(token) {
+                    let $formData = $($form).serializeArray();
+                    $($formData).each(function (key, value) {
+                        if (value.name === "g-recaptcha-response"){
+                            $formData[key].value = token;
+                        }
+                    });
+
+                    if (token !== undefined && token !== "") {
+                        $.ajax({
+                            type: "POST",
+                            url: "/products",
+                            data: $formData
+                        }).done(function (data) {
+                            if (data.data !== undefined && data.data.id > 0) {
+                                $message.css("background-color", "#50d975");
+                                $form[0].reset();
+                            } else {
+                                $message.css("background-color", "#dc3545");
+                            }
+
+                            $message.html(data.message);
+                            $message.fadeIn(1000);
+                            setTimeout(function () {
+                                $message.fadeOut(1200);
+                            }, 5000);
+                        }).fail(function(jqXHR, textStatus, errorThrown) {
+                            $message.css("background-color", "#dc3545");
+                            $message.html("Възникна грешка! Моля опитайте отново след 5мин. или може да се свържете с нас през нашите контакти!");
+                        });
+                    }
+                });
+        });
     });
 
     $('.pop').on('click', function () {
