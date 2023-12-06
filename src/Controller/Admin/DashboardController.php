@@ -6,6 +6,7 @@ use App\Entity\Image;
 use App\Entity\Measurement;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
+use App\Entity\ProductRequest;
 use App\Entity\ProductsImages;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -54,6 +55,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Продуктови категорий', 'fas fa-list', ProductCategory::class);
         yield MenuItem::linkToCrud('Изображения', 'fas fa-list', Image::class);
         yield MenuItem::linkToCrud('Мерни единици', 'fas fa-list', Measurement::class);
-//        yield MenuItem::linkToCrud('Продуктови изображения','fas fa-list',ProductsImages::class);
+        yield MenuItem::linkToCrud('Заявки','fas fa-list',ProductRequest::class);
     }
 }

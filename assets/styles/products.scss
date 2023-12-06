@@ -281,8 +281,8 @@
 }
 
 .product-carousel {
-  width: 80%;
-  height: 300px;
+  width: 70%;
+  height: 260px;
   margin: 0 auto;
 }
 
@@ -435,4 +435,15 @@
 .modal-body .carousel {
   width: 60%;
   margin: 0 auto;
+}
+
+.modal-body .message {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 10px;
+  padding: 5px;
+  font-weight: bold;
+  border-radius: 6px;
+  color: #fff;
+  background-color: #50d975;
 }

@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\ProductRequest;
 use App\Repository\ProductRepository;
 //use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use App\Repository\ProductRequestRepository;
 use App\Translations\Loader;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,12 +25,12 @@ class ProductsController extends AbstractController
         $this->translations = Loader::getAll();
     }
 
-    #[Route('/products', name: 'app_products')]
+    #[Route('/products', name: 'app_products', methods: ["GET"])]
     public function index(ProductRepository $pr, Request $request): Response // EntityManagerInterface $entityManager
     {
-        $page = $request->query->get('page');;
-        $limit = $request->query->get('limit');;
-        $category = $request->query->get('cid');;
+        $page = $request->query->get('page');
+        $limit = $request->query->get('limit');
+        $category = $request->query->get('cid');
 
         if ($page == 0) {
             $page = 1;
@@ -80,5 +84,52 @@ class ProductsController extends AbstractController
             'limit' => $limit,
             'category_id' => $category,
         ]);
+    }
+
+    #[Route('/products', name: 'app_products_request', methods: ["POST"])]
+    public function createProductRequest(EntityManagerInterface $entityManager, Request $request) : Response {
+        $name = $request->request->get('name');
+        if (!$name) {
+            return $this->json(['message'=>"'Име, Фамилия' е задължително поле"]);
+        }
+
+        $phone = $request->request->get('phone');
+        $email = $request->request->get('email');
+        if (!$email) {
+            return $this->json(['message'=>"'Имейл' е задължително поле"]);
+        }
+
+        $message = $request->request->get('message');
+        if (!$message) {
+            return $this->json(['message'=>"'Съобщение' е задължително поле"]);
+        }
+
+        $pid = $request->request->get('pid');
+
+        $captcha = $request->request->get('g-recaptcha-response');
+        $secret   = '6LdX9CcpAAAAAAtvpb-y7bqUFIF55A-gFaBVq5cH';
+        $response = file_get_contents(
+            "https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']
+        );
+
+        $response = json_decode($response);
+        if ($response->success === false) {
+            return $this->json(['data' => $response, 'message' => "Възникна грешка! Моля опитайте да поръчате през нашите контакти или опитайте по-късно!"]);
+        }
+
+        $productRequest = new ProductRequest();
+        $productRequest->setClientName($name);
+        $productRequest->setPhone($phone);
+        $productRequest->setEmail($email);
+        $productRequest->setMessage($message);
+        $productRequest->setProductId($pid);
+        $productRequest->setCreatedAt(new DateTimeImmutable());
+
+        $entityManager->persist($productRequest);
+
+        $entityManager->flush();
+
+
+        return $this->json(['data'=>$productRequest, 'message' => "Заявката беше изпратена успешно"]);
     }
 }
