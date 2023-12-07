@@ -82,7 +82,7 @@ class Product
         return $this->subTitle;
     }
 
-    public function setSubTitle(string $subTitle): static
+    public function setSubTitle(?string $subTitle): static
     {
         $this->subTitle = $subTitle;
 

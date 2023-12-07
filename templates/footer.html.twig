@@ -21,16 +21,9 @@
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 mt-5">
                         <h6 class="text-uppercase fw-bold">{{ translations['Products']|trans }}</h6>
                         <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px"/>
-                        <p><a href="{{ path('app_products_drinks') }}">{{ translations['Drinks']|trans }}</a></p>
-                        <p><a href="{{ path('app_products_supplements') }}">{{ translations['Supplements and nutrition']|trans }}</a></p>
-                        <p><a href="{{ path('app_products_essential_oils') }}">{{ translations['Essential oils']|trans }}</a></p>
-                        <p><a href="{{ path('app_products_bee') }}">{{ translations['Bee products']|trans }}</a></p>
-                        <p><a href="{{ path('app_products_body_weight') }}">{{ translations['Weight control']|trans }}</a></p>
-                        <p><a href="{{ path('app_products_facial_care') }}">{{ translations['Facial care']|trans }}</a></p>
-                        <p><a href="{{ path('app_products_body_care') }}">{{ translations['Body care']|trans }}</a></p>
-                        <p><a href="{{ path('app_products_personal_hygiene') }}">{{ translations['Personal hygiene']|trans }}</a></p>
-                        <p><a href="{{ path('app_products_combined_packages') }}">{{ translations['Combined packages']|trans }}</a></p>
-                        <p><a href="{{ path('app_products_cosmetics_sonya') }}">{{ translations['Cosmetics "Sonya"']|trans }}</a></p>
+                        {% for category in categories %}
+                            <p><a class="dropdown-item" href="{{ path('app_products', {'cid':category.id, 'limit':3, 'page':1 }) }}">{{ category.title }}</a></p>
+                        {% endfor %}
                     </div>
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 mt-5">
                         <h6 class="text-uppercase fw-bold">{{ translations['Useful links']|trans }}</h6>

@@ -21,6 +21,12 @@ class ProductCategory
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
     private Collection $products;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $color = null;
+
+    #[ORM\Column(length: 1000)]
+    private ?string $description = null;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -76,5 +82,29 @@ class ProductCategory
     public function __toString(): string
     {
         return $this->title;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): static
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
     }
 }

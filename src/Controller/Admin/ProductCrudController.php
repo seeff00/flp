@@ -24,6 +24,7 @@ class ProductCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            IdField::new('id', 'ИД')->onlyOnIndex(),
             TextField::new('title', 'Заглавие'),
             TextField::new('sub_title', 'Под заглавие'),
             TextareaField::new('description', 'Описание')->renderAsHtml()->onlyWhenCreating(),

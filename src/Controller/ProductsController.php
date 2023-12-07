@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\ProductCategory;
 use App\Entity\ProductRequest;
 use App\Repository\ProductRepository;
 //use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
@@ -26,11 +27,11 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/products', name: 'app_products', methods: ["GET"])]
-    public function index(ProductRepository $pr, Request $request): Response // EntityManagerInterface $entityManager
+    public function index(EntityManagerInterface $entityManager, Request $request): Response // EntityManagerInterface $entityManager
     {
         $page = $request->query->get('page');
         $limit = $request->query->get('limit');
-        $category = $request->query->get('cid');
+        $cid = $request->query->get('cid');
 
         if ($page == 0) {
             $page = 1;
@@ -40,8 +41,8 @@ class ProductsController extends AbstractController
             $limit = 9;
         }
 
-        if ($category == 0) {
-            $category = 1;
+        if ($cid == 0) {
+            $cid = 1;
         }
 
         $offset = 0;
@@ -49,31 +50,21 @@ class ProductsController extends AbstractController
             $offset = ($page - 1) * $limit;
         }
 
-//        $r = $pr->findWithRelations();
-//        print_r($r);
-//        exit;
+        // Fetch products
+        $numberOfProducts = $entityManager->getRepository(Product::class)->count(['category' => $cid]);
+        $products = $entityManager->getRepository(Product::class)->findBy(['category' => $cid], null, $limit, $offset);
 
-        $numberOfProducts = $pr->count(['category' => $category]);
-//        $p = $pr->findBy(['category' => $category]);
-        $products = $pr->findBy(['category' => $category], null, $limit, $offset);
-//        $p = $entityManager->getRepository(Product::class)->findBy(['category' => $category]);
-//        $products = $entityManager->getRepository(Product::class)->findBy(['category' => $category], null, $limit, $offset);
+        // Fetch categories
+        $categories = $entityManager->getRepository(ProductCategory::class)->findAll();
+        $currentCategory = $entityManager->getRepository(ProductCategory::class)->findOneBy(['id'=>$cid]);
 
-//        if (!$products) {
-//            throw $this->createNotFoundException(
-//                'No product found for category 1'
-//            );
-//        }
-
+        // Fetch products images
         $productsImages = [];
         foreach ($products as $product) {
             foreach ($product->getImages() as $image) {
                 $productsImages[$product->getId()][] = $image->getImageName();
             }
         }
-
-//        print_r($productsImages);
-//        exit;
 
         return $this->render('products/index.html.twig', [
             'controller_name' => 'ProductsController',
@@ -82,12 +73,25 @@ class ProductsController extends AbstractController
             'productsImages' => $productsImages,
             'number_of_pages' => ceil($numberOfProducts / $limit),
             'limit' => $limit,
-            'category_id' => $category,
+            'cid' => $cid,
+            'categories' => $categories,
+            'currentCategory' => $currentCategory,
         ]);
     }
 
     #[Route('/products', name: 'app_products_request', methods: ["POST"])]
     public function createProductRequest(EntityManagerInterface $entityManager, Request $request) : Response {
+        $captcha = $request->request->get('g-recaptcha-response');
+        $secret   = '6LdX9CcpAAAAAAtvpb-y7bqUFIF55A-gFaBVq5cH';
+        $response = file_get_contents(
+            "https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']
+        );
+
+        $response = json_decode($response);
+        if ($response->success === false) {
+            return $this->json(['data' => $response, 'message' => "Възникна грешка! Моля опитайте да поръчате през нашите контакти или опитайте по-късно!"]);
+        }
+
         $name = $request->request->get('name');
         if (!$name) {
             return $this->json(['message'=>"'Име, Фамилия' е задължително поле"]);
@@ -106,17 +110,6 @@ class ProductsController extends AbstractController
 
         $pid = $request->request->get('pid');
 
-        $captcha = $request->request->get('g-recaptcha-response');
-        $secret   = '6LdX9CcpAAAAAAtvpb-y7bqUFIF55A-gFaBVq5cH';
-        $response = file_get_contents(
-            "https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']
-        );
-
-        $response = json_decode($response);
-        if ($response->success === false) {
-            return $this->json(['data' => $response, 'message' => "Възникна грешка! Моля опитайте да поръчате през нашите контакти или опитайте по-късно!"]);
-        }
-
         $productRequest = new ProductRequest();
         $productRequest->setClientName($name);
         $productRequest->setPhone($phone);
@@ -128,7 +121,6 @@ class ProductsController extends AbstractController
         $entityManager->persist($productRequest);
 
         $entityManager->flush();
-
 
         return $this->json(['data'=>$productRequest, 'message' => "Заявката беше изпратена успешно"]);
     }
