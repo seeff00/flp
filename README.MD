@@ -6,9 +6,11 @@ Setup
 ```shell
 git clone git@github.com:seeff00/flp.git
 cd flp
+composer install
 npm install
 npm run build
-composer install
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
 symfony server:start --port=8082
 ```
 

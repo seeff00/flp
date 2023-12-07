@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ProductCategory;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\FLPAuthAuthenticator;
@@ -66,9 +67,12 @@ class RegistrationController extends AbstractController
             );
         }
 
+        $categories = $entityManager->getRepository(ProductCategory::class)->findAll();
+
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
             'translations' => $this->translations,
+            'categories' => $categories,
         ]);
     }
 }

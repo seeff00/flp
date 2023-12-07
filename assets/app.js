@@ -41,9 +41,9 @@ $(function() {
     //     myInput.focus()
     // })
     //
-    // const requestModal = document.getElementById('requestModal')
+    // const request-modal = document.getElementById('request-modal')
     // const orderInput = document.getElementById('request')
-    // requestModal.addEventListener('shown.bs.modal', () => {
+    // request-modal.addEventListener('shown.bs.modal', () => {
     //     orderInput.focus()
     // })
 
@@ -59,7 +59,7 @@ $(function() {
 
     // function onClick(e) {
     //     e.preventDefault();
-    // $('.requestModal form').on('submit', function (e) {
+    // $('.request-modal form').on('submit', function (e) {
     //     e.preventDefault();
     //     e.stopPropagation();
     //     const $form = $(this);
@@ -71,7 +71,7 @@ $(function() {
     //     });
     // });
 
-    $('.requestModal form').on('submit', function (e) {
+    $('.request-modal form').on('submit', function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -112,6 +112,14 @@ $(function() {
                     }
                 });
         });
+    });
+
+    $('.request-modal .modal-dialog .btn-close').on('click', function (e){
+        $('.modal').modal('hide');
+    });
+
+    $('.product-modal .modal-dialog .btn-close').on('click', function (e){
+        $('.modal').modal('hide');
     });
 
     $('.pop').on('click', function () {
