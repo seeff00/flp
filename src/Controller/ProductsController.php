@@ -82,7 +82,7 @@ class ProductsController extends AbstractController
     #[Route('/products', name: 'app_products_request', methods: ["POST"])]
     public function createProductRequest(EntityManagerInterface $entityManager, Request $request) : Response {
         $captcha = $request->request->get('g-recaptcha-response');
-        $secret   = '6LdX9CcpAAAAAAtvpb-y7bqUFIF55A-gFaBVq5cH';
+        $secret = $_ENV['GOOGLE_RECAPTCHA_SECRET'];
         $response = file_get_contents(
             "https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']
         );
