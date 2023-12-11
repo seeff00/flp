@@ -1,0 +1,84 @@
+<style>
+    .send-btn {
+        width: 150px;
+        height: 50px;
+        border: none;
+        border-radius: 25px/50%;
+        background-color: #0096ff;
+        font-size: 1.5rem;
+        position: relative;
+        box-shadow: 0 0 0 #50c878 inset, 0 2px 5px #0095ffa6;
+        transition: all 350ms ease-in-out;
+        cursor: pointer;
+    }
+
+    .send-btn.checked {
+        box-shadow: 200px 0 0 #50c878 inset, 0 2px 5px #50c878a6;
+    }
+
+    .circle {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        /* border: 1px solid #000; */
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .plane-icon {
+        position: absolute;
+        left: -0.5em;
+        top: 50%;
+        transform: translateY(-50%) rotate(-25deg);
+    }
+
+    .rotateCircle {
+        animation: rotate 3s ease-in-out 1;
+    }
+
+    .hide {
+        display: none;
+        visibility: hidden;
+    }
+
+    @keyframes rotate {
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<button id="send-btn"
+        type="submit"
+        class="btn btn-lg btn-block request send-btn"
+        data-sitekey="6LdX9CcpAAAAAHsbVpU56Az2rSTDJf4q7oCvys3z"
+        data-action='submit'
+        style="background-color: {{ currentCategory.color }};">
+    <div class="circle">
+        <i class="fa-solid fa-paper-plane plane-icon hide"></i>
+    </div>
+    Изпрати
+</button>
+<script>
+    // let sendBtn = document.querySelector(".send-btn");
+    //
+    // sendBtn.addEventListener("click", () => {
+    //     let planePath = sendBtn.querySelector(".circle");
+    //     let planeIcon = sendBtn.querySelector(".plane-icon");
+    //
+    //     planePath.classList.add("rotateCircle");
+    //     planeIcon.classList.remove("hide");
+    //
+    //     setTimeout(() => {
+    //         planeIcon.classList.add("hide");
+    //         planePath.classList.remove("rotateCircle");
+    //     }, 2750);
+    //
+    //     setTimeout(() => {
+    //         sendBtn.classList.add("checked");
+    //         sendBtn.innerHTML = "Sent";
+    //     }, 3000);
+    // });
+</script>
