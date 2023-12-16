@@ -1,0 +1,219 @@
+@media screen and (max-width: 980px) {
+  #product-preview {
+    width: 80% !important;
+  }
+
+  #product-preview .product-amount {
+    left: 2.3em !important;
+  }
+
+  #product-preview .product-details .product-amount .tooltiptext {
+    left: -4em !important;
+  }
+}
+
+#product-preview {
+  width: 60%;
+  background: rgba(255,255,255,0.85);
+  margin: 0 auto;
+  z-index: 102;
+  position: relative;
+  margin-top: 3em;
+  border-radius: 6px;
+  padding: 1em;
+}
+
+#product-preview  .title {
+  font-size: 2.5em;
+}
+
+#product-preview  .product-carousel-modal {
+  width: 30%;
+  float: left;
+  margin: 0 1.5em 1em 0;
+}
+
+#product-preview .product-info {
+  height: auto;
+  font-size: 0.8em;
+}
+
+#product-preview .product-description {
+  height: auto;
+}
+
+#product-preview .product-details {
+  display: flex;
+  justify-content: center;
+  gap: 5em;
+  align-items: center;
+  background: #000; // rgba(0,0,0,0.8);
+  font-size: 0.9em;
+  height: 4em;
+  color: #fff
+}
+
+#product-preview .product-order, .product-request-modal .product-order {
+  text-align: center !important;
+  margin-top: 1em;
+}
+
+#product-preview .product-order button, .product-request-modal .product-order button {
+  width: 15em;
+}
+
+#product-preview .product-details .product-price {
+  //border-right: 0;
+  //margin: 0;
+  //background-color: initial;
+  //color: #fff;
+  //top: 0;
+  //padding: 1.3em 0.5em 0;
+  background-color: initial;
+  border-right: 0;
+  color: #fff;
+  margin: 0;
+  width: 100%;
+  padding: 0;
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+}
+
+// Circle effect
+#product-preview .outer-circle {
+  position: relative;
+  height: 8rem;
+  width: 8rem;
+  background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);
+  border-radius: 50%;
+  //animation: rotate 1.5s linear infinite;
+  left: 6em;
+  animation: testReverse 3s ease-in 1;
+}
+
+#product-preview .outer-circle span {
+  position: absolute;
+  background: linear-gradient(#14ffe9,#ffeb3b,#ff00e0);
+  border-radius: 50%;
+  height: 8rem;
+  width: 8rem;
+  left: 0;
+}
+
+#product-preview .outer-circle span:nth-child(1) {
+  filter: blur(5px);
+}
+
+#product-preview .outer-circle span:nth-child(2) {
+  filter: blur(10px);
+}
+
+#product-preview .outer-circle span:nth-child(3) {
+  filter: blur(25px);
+}
+
+#product-preview .outer-circle span:nth-child(4) {
+  filter: blur(150px);
+}
+
+#product-preview .inner-circle {
+  background: #000;
+  border-radius: 50%;
+  height: 7rem;
+  left: 8px;
+  position: absolute;
+  top: 8px;
+  width: 7rem;
+  z-index: 9;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+#product-preview .product-details .product-price:hover .tooltiptext,
+#product-preview .product-details .product-amount:hover .tooltiptext,
+#product-preview .product-details .product-code:hover .tooltiptext {
+  visibility: visible;
+  cursor: default;
+}
+
+@keyframes rotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+// End Circle effect
+
+#product-preview .product-amount {
+  left: 1.6em;
+  position: relative;
+  text-align: center;
+}
+
+#product-preview .product-code {
+  left: -5em;
+  position: relative;
+  text-align: center;
+}
+
+#product-preview .product-details .product-amount .tooltiptext,
+#product-preview .product-details .product-code .tooltiptext,
+#product-preview .product-details .product-price .tooltiptext {
+  visibility: hidden;
+  width: 220px;
+  text-align: center;
+  border-radius: 8px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  font-size: 16px;
+  background: rgba(0,0,0,1);
+  color: #fff;
+}
+
+#product-preview .product-details .product-price .tooltiptext {
+  top: -6.3em;
+  left: -3.6em;
+}
+
+#product-preview .product-details .product-amount .tooltiptext {
+  left: -0.9em;
+  top: -3.3em;
+}
+
+#product-preview .product-details .product-code .tooltiptext {
+  left: -5em;
+  top: -3.3em;
+}
+
+#request-form-3 {
+  font-size: 0.8em;
+}
+
+#product-preview .product-details .product-amount {
+  animation-name: test;
+  animation-duration: 3s;
+}
+
+@keyframes test {
+  from {
+    transform: translateX(-1000px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes testReverse {
+  from {
+    transform: translateX(700px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}

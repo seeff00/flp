@@ -24,6 +24,7 @@ class ProductCategoryCrudController extends AbstractCrudController
             TextareaField::new('description', 'Описание')->renderAsHtml()->onlyWhenCreating()->setRequired(false),
             TextareaField::new('description', 'Описание')->renderAsHtml()->onlyWhenUpdating()->setRequired(false),
             TextField::new('description', 'Описание')->onlyOnIndex()->setMaxLength(100),
+            TextField::new('externalLink', 'Външен линк')->setMaxLength(255),
             TextField::new('color', 'Цвят'),
         ];
     }

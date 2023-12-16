@@ -16,21 +16,21 @@
 </head>
 <body>
 
+{% include('header.html.twig') %}
+
+{% if app.request.pathinfo != '/admin' and app.request.pathinfo != '/login' and app.request.pathinfo != '/register' %}
+    {% include('navbar.html.twig') %}
+{% endif %}
+
 <div id="page-wrapper">
-    {% include('header.html.twig') %}
-
-    {% if app.request.pathinfo != '/admin' and app.request.pathinfo != '/login' and app.request.pathinfo != '/register' %}
-        {% include('navbar.html.twig') %}
-    {% endif %}
-
     {% block body %}{% endblock %}
+</div>
 
-    <div id="footer-wrapper">
+<div id="footer-wrapper">
     <div class="footer-background">
         <img src="{{ asset('images/footer/snow-footer.png') }}" alt="footer image"/>
     </div>
     {% include('footer.html.twig') %}
-    </div>
 </div>
 <script src="https://www.google.com/recaptcha/api.js?render=6LdX9CcpAAAAAHsbVpU56Az2rSTDJf4q7oCvys3z"></script>
 </body>

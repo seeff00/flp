@@ -1,3 +1,8 @@
+@media screen and (max-width: 980px) {
+  #footer-wrapper {
+    bottom: 0;
+  }
+}
 //footer p {
 //  margin-bottom: 5px;
 //}
@@ -20,7 +25,6 @@
 
 #footer-wrapper {
   position: relative;
-  bottom: 0;
   width: 100%;
 }
 

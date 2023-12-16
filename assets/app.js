@@ -122,9 +122,28 @@ $(function() {
         $('.modal').modal('hide');
     });
 
-    $('.pop').on('click', function () {
-        console.log('clicked');
-        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-        $(this).parent().find('#imagemodal').modal('show');
-    });
+    // https://www.flp.bg/eo
+    //  $("#flp-external").load('https://www.flp.bg/eo/ #content1');
+
+    // $.get("https://www.flp.bg/eo/ #content1").done(function(data){
+    //     console.log(data);
+    // });
+
+    // $.ajax({
+    //     url: "https://www.flp.bg/eo/ #content1",
+    //     type: 'GET',
+    //     CORS: true ,
+    //     headers: {
+    //         'Access-Control-Allow-Origin': '*',
+    //     },
+    //     success: function (data){
+    //         console.log(data);
+    //     }
+    // })
+
+    // $('.pop').on('click', function () {
+    //     console.log('clicked');
+    //     $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+    //     $(this).parent().find('#imagemodal').modal('show');
+    // });
 });

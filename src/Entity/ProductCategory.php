@@ -27,6 +27,9 @@ class ProductCategory
     #[ORM\Column(length: 1000)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $externalLink = null;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -104,6 +107,18 @@ class ProductCategory
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getExternalLink(): ?string
+    {
+        return $this->externalLink;
+    }
+
+    public function setExternalLink(?string $externalLink): static
+    {
+        $this->externalLink = $externalLink;
 
         return $this;
     }

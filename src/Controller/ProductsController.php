@@ -13,6 +13,7 @@ use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,7 +71,7 @@ class ProductsController extends AbstractController
             'controller_name' => 'ProductsController',
             'translations' => $this->translations,
             'products' => $products,
-            'productsImages' => $productsImages,
+            'productImages' => $productsImages,
             'number_of_pages' => ceil($numberOfProducts / $limit),
             'limit' => $limit,
             'cid' => $cid,
@@ -123,5 +124,34 @@ class ProductsController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['data'=>$productRequest, 'message' => "Заявката беше изпратена успешно"]);
+    }
+
+    #[Route('/products/{id}', name: 'app_product', methods: ["GET"])]
+    public function preview(EntityManagerInterface $entityManager, Request $request, int $id): Response // EntityManagerInterface $entityManager
+    {
+        if (empty($id)) {
+            $referer = $request->headers->get('referer');
+            $rr = new RedirectResponse($referer);
+            $rr->send();
+            return new Response();
+        }
+
+        $product = $entityManager->getRepository(Product::class)->findOneBy(['id' => $id]);
+
+        $productImages = [];
+        foreach ($product->getImages() as $image) {
+            $productImages[$product->getId()][] = $image->getImageName();
+        }
+
+//print_r($productImages);
+//        exit;
+        return $this->render('products/product.html.twig', [
+            'controller_name' => 'ProductsController',
+            'translations' => $this->translations,
+            'product' => $product,
+            'productImages' => $productImages,
+            'categories' => $entityManager->getRepository(ProductCategory::class)->findAll(),
+            'currentCategory' => $product->getCategory()
+        ]);
     }
 }

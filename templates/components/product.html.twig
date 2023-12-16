@@ -1,0 +1,103 @@
+<div class="column">
+    <div class="head">
+        <span class="headline title">{{ product.title }}</span><br/>
+        {% if product.subTitle is not empty %}
+            <p>
+                <span class="headline hl2 subtitle">{{ product.subTitle }}</span>
+            </p>
+        {% endif %}
+    </div>
+</div>
+<div class="product-info">
+    <div id="product-carousel-{{ product.id }}"
+         class="product-carousel-modal carousel slide"
+         data-bs-ride="carousel">
+        <div class="carousel-inner product-carousel">
+            {% if productImages[product.id] is defined %}
+                {% for productImage in productImages[product.id] %}
+                    {% if loop.index == 1 %}
+                        <div class="carousel-item active">
+                            <img src="/uploads/attachments/{{ productImage }}"
+                                 class="d-block w-100" alt="...">
+                        </div>
+                    {% else %}
+                        <div class="carousel-item">
+                            <img src="/uploads/attachments/{{ productImage }}"
+                                 class="d-block w-100" alt="...">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <button class="carousel-control-prev" type="button"
+                data-bs-target="#product-carousel-{{ product.id }}"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button"
+                data-bs-target="#product-carousel-{{ product.id }}"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <p class="product-description">
+        <b>{{ translations['Description']|trans }}
+            : </b>{{ product.description | raw }}</p>
+    <hr/>
+    {% if product.ingredients is not empty %}
+        <p class="product-ingredients">
+            <b>{{ translations['Ingredients']|trans }}
+                : </b>{{ product.ingredients | raw }}</p>
+        <hr/>
+    {% endif %}
+    {% if product.recommendedUse is not empty %}
+        <p class="product-recommended-use">
+            <b>{{ translations['Recommended use']|trans }}
+                : </b>{{ product.recommendedUse | raw }}</p>
+        <hr/>
+    {% endif %}
+    {% if product.storageConditions is not empty %}
+        <p class="product-storage-conditions">
+            <b>{{ translations['Storage conditions']|trans }}
+                : </b>{{ product.storageConditions | raw }}</p>
+        <hr/>
+    {% endif %}
+    {% if product.mainCharacteristics is not empty %}
+        <p class="product-main-characteristics">
+            <b>{{ translations['Main characteristics']|trans }}
+                : </b>{{ product.mainCharacteristics | raw }}</p>
+        <hr/>
+    {% endif %}
+</div>
+<div class="product-details">
+    <span class="product-code">
+        <i class="fa fa-barcode" style="font-size:34px"></i><br/>
+        <span>{{ product.code }}</span>
+        <div class="tooltiptext">Код на продукта</div>
+    </span>
+    <span class="product-amount">
+        <i class="fa fa-balance-scale" style="font-size: 34px;" aria-hidden="true"></i><br/>
+        <span>{{ product.amount }}</span>
+        <span class="product-detail">{{ product.measurement.title }}</span>
+        <div class="tooltiptext">Количество</div>
+    </span>
+    <div class="outer-circle">
+        <div class="inner-circle">
+            <div class="product-price">
+                <i class="fa-solid fa-wallet" style="font-size: 34px;"></i><br/>
+                {{ (product.price / 100) |format_currency('BGN') }}
+                <div class="tooltiptext">Препоръчителна цена за потребители</div>
+            </div>
+        </div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+
+{#    <span class="product-price right"><b>{{ translations['PCP']|trans }}: </b><span#}
+{#                class="tooltiptext">Препоръчителна цена за потребители</span><span>{{ (product.price / 100) |format_currency('BGN') }}</span></span>#}
+</div>
